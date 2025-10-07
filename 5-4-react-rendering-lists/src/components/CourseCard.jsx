@@ -39,9 +39,12 @@ export default function CourseCard({ course, index, onMutateCourse }) {
     <article className="course card">
       <header className="cardHeader">
         <h2>{course.title}</h2>
-        {/* Conditional rendering — show badge if all tasks done */}
-        {allDone && <span className="badge success">All caught up!</span>}
+        {course.tasks.length > 0 &&
+            course.tasks.every(t => t.isDone) && (
+         <span className="badge">All caught up</span>
+      )}
       </header>
+
 
       {/* Show message or task list */}
       {course.tasks.length === 0 ? (
