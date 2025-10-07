@@ -19,18 +19,20 @@ export default function CourseCard({ course, index, onMutateCourse }) {
 
   // ✅ Add a new task
   function addTask(e) {
-    e.preventDefault();
-    if (!title.trim() || !date) return;
-    const newTask = {
-      id: Math.random().toString(36).slice(2, 9),
-      title,
-      dueDate: date,
-      isDone: false,
-    };
-    onMutateCourse(index, tasks => [...tasks, newTask]);
-    setTitle("");
-    setDate("");
-  }
+  e.preventDefault();
+  if (!title.trim() || !date) return;
+
+  const newTask = {
+    id: Math.random().toString(36).slice(2, 9),
+    title,               // <-- exactly 'title'
+    dueDate: date,       // <-- exactly 'dueDate' with the 'date' state
+    isDone: false,       // <-- exactly false
+  };
+
+  onMutateCourse(index, tasks => [...tasks, newTask]);
+  setTitle("");
+  setDate("");
+}
 
   // ✅ Check if all tasks are done
   const allDone = course.tasks.length > 0 && course.tasks.every(t => t.isDone);
@@ -38,12 +40,13 @@ export default function CourseCard({ course, index, onMutateCourse }) {
   return (
     <article className="course card">
       <header className="cardHeader">
-        <h2>{course.title}</h2>
-        {course.tasks.length > 0 &&
-            course.tasks.every(t => t.isDone) && (
-         <span className="badge">All caught up</span>
-      )}
-      </header>
+  <h2>{course.title}</h2>
+  {course.tasks.length > 0 &&
+    course.tasks.every(t => t.isDone) && (
+      <span className="badge">All caught up</span>
+    )}
+</header>
+
 
 
       {/* Show message or task list */}
